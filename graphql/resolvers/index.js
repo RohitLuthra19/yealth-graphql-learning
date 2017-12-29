@@ -12,7 +12,7 @@ const resolver = {
             return await Order.findById(args._id);
         },
         getOrdersByUser: async (parent, args) => {
-            return await Order.find({orderBy : args.userId});
+            return await Order.find({ orderBy: args.userId });
         }
     },
     Mutation: {
@@ -26,8 +26,9 @@ const resolver = {
         removeOrder: async (parent, args) => {
             return await Order.findByIdAndRemove({ _id: args._id });
         },
-        updateOrderStatus: async (parent, args) => {
-            return await Order.findOneAndUpdate({ _id: args._id });
+        updateOrderStatus: async (parent, { _id, ...doc }) => {
+            await Order.update({ _id }, doc);
+            return { _id, ...doc }
         }
     }
 }
