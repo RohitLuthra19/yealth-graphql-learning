@@ -33,3 +33,14 @@ mutation {
     }
   }
   
+
+  mutation {
+    removeOrder(_id:"5a464305c3e84b1870097057"){
+      orderStatus
+      orderNo
+      orderBy
+      orderAddress
+      prescription
+      medicines
+    }
+  }

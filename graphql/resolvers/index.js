@@ -9,7 +9,7 @@ const resolver = {
             });
         },
         getOrder: async (parent, args) => {
-            return await Order.findById(args.orderId);
+            return await Order.findById(args._id);
         },
         getOrdersByUser: async (parent, args) => {
             return await Order.find({orderBy : args.userId});
@@ -21,19 +21,13 @@ const resolver = {
             return await order.save();
         },
         updateOrder: async (parent, args) => {
-            return await Order.findOneAndUpdate({ _id: args.orderId }, (err, res) => {
-                return res;
-            });
+            return await Order.findOneAndUpdate({ _id: args._id });
         },
         removeOrder: async (parent, args) => {
-            return await Order.findByIdAndRemove({ _id: args.orderId }, (err, res) => {
-                return res;
-            });
+            return await Order.findByIdAndRemove({ _id: args._id });
         },
         updateOrderStatus: async (parent, args) => {
-            return await Order.findOneAndUpdate({ _id: args.orderId }, (err, res) => {
-                return res;
-            });
+            return await Order.findOneAndUpdate({ _id: args._id });
         }
     }
 }
