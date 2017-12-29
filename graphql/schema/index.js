@@ -109,11 +109,15 @@ type Order {
 
 type Query {
     getAllOrders: [Order]
-    getOrder(orderId: String!): Order
+    getOrder(orderId:String!): Order
+    getOrdersByUser(userId:String!): Order
 }
 
 type Mutation {
     placeOrder(orderBy:String orderStatus:Int prescription:[String] createdAt:String vendorAssigned:String medicines:[MedicineInput] orderAddress:AddressInput ): Order
+    updateOrder(orderId:String! orderBy:String orderStatus:Int prescription:[String] createdAt:String vendorAssigned:String medicines:[MedicineInput] orderAddress:AddressInput ): Order
+    removeOrder(orderId:String!): Order
+    updateOrderStatus(orderId:String! orderStatus:Int): Order
 }
 
 schema {
