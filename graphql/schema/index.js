@@ -119,6 +119,8 @@ type Query {
     getAllOrders: [Order]
     getOrder(_id: String!): Order
     getOrdersByUser(userId:String!): Order
+
+
 }
 
 type Mutation {
@@ -126,6 +128,8 @@ type Mutation {
     updateOrder(_id: String! orderBy:String orderStatus:Int prescription:[String] createdAt:String vendorAssigned:String medicines:[MedicineInput] orderAddress:AddressInput ): Order
     removeOrder(_id: String!): Order
     updateOrderStatus(_id:String! orderStatus:Int): Order
+
+    sendOtp(mobileNumber: String!): User
 }
 
 schema {
