@@ -115,12 +115,16 @@ type Order {
     vendorAssigned: Vendor   
 }
 
+type otpResponse {
+    success: Boolean!
+    error: Boolean!
+    message: String!
+}
+
 type Query {
     getAllOrders: [Order]
     getOrder(_id: String!): Order
     getOrdersByUser(userId:String!): Order
-
-
 }
 
 type Mutation {
@@ -129,7 +133,7 @@ type Mutation {
     removeOrder(_id: String!): Order
     updateOrderStatus(_id:String! orderStatus:Int): Order
 
-    sendOtp(mobileNumber: String!): User
+    sendOtp(mobileNumber: String!): otpResponse
 }
 
 schema {

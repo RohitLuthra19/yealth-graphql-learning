@@ -55,7 +55,9 @@ const resolver = {
                 if (error) {
                     return next(error)
                 } else if (data.type === "success") {
-                    return { data: data.type }
+                    return { success: true, error: false, message: 'Otp sent successfully!' }
+                } else {
+                    return { success: false, error: false, message: 'Otp failed!' }
                 }
             });
         },
