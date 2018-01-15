@@ -55,9 +55,19 @@ const resolver = {
                 if (error) {
                     return next(error)
                 } else if (data.type === "success") {
-                    return { success: true, error: false, message: 'Otp sent successfully!' }
-                } else {
-                    return { success: false, error: false, message: 'Otp failed!' }
+                    return true;
+                }
+            });
+        },
+        verify:  async (parent, args) => {
+            await sendOtp.verify(args.mobileNumber, args.otp, (error, data, response) => {
+                if (error) {
+                    return next(error)
+                } else if (data.type === "success") {
+                    return await User.findOneAndUpdate({ mobileNumber: args.mobileNumber })
+                }
+                else {
+                    return { success: false, error: false, message: 'Otp does not verified!' }
                 }
             });
         },

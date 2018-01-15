@@ -115,10 +115,12 @@ type Order {
     vendorAssigned: Vendor   
 }
 
-type otpResponse {
+type VerifyOtpResponse {
     success: Boolean!
     error: Boolean!
     message: String!
+    token: String
+    user: User
 }
 
 type Query {
@@ -133,7 +135,8 @@ type Mutation {
     removeOrder(_id: String!): Order
     updateOrderStatus(_id:String! orderStatus:Int): Order
 
-    sendOtp(mobileNumber: String!): otpResponse
+    sendOtp(mobileNumber: String!): Boolean
+    verify(mobileNumber: String! otp: Int! deviceToken:String environment:String osVersion:String buildVersion:String device:String): VerifyOtpResponse
 }
 
 schema {
