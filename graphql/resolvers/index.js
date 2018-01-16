@@ -3,8 +3,10 @@ const Order = require('../../models/order.model');
 const SendOtp = require('sendotp');
 const Constants = require('../../helpers/constants');
 const sendOtp = new SendOtp(process.env.AUTHKEY_MSG91);
+import { GraphQLUpload } from 'apollo-upload-server'
 
 const resolver = {
+    Upload: GraphQLUpload,
     Query: {
         /**
          * Orders
@@ -24,7 +26,11 @@ const resolver = {
         /**
          * Users
          */
+
         
+        /**
+         * Vendors
+         */
 
     },
     Mutation: {
@@ -71,6 +77,15 @@ const resolver = {
                 }
             });
         },
+        signup: async(parent, args) => {
+            return await Order.findByIdAndUpdate({ _id: args.userId });
+        },
+
+        /**
+         * Vendors
+         */
+
+
 
     }
 }

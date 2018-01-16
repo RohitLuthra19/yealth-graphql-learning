@@ -18,6 +18,8 @@ var APIError = require('../helpers/APIError');
 const { makeExecutableSchema } = require('graphql-tools');
 //  GraphQL server handles all requests and responses
 const { graphiqlExpress, graphqlExpress } = require('apollo-server-express');
+// Multipart request to upload files
+import { GraphQLUpload } from 'apollo-upload-server'
 
 const app = express();
 
@@ -62,7 +64,7 @@ const schema = makeExecutableSchema({
 //app.use('/graphql', bodyParser.json(), graphqlExpress({ schema: schema, context: { } }));
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
-app.use("/graphql", bodyParser.json(), graphqlExpress((req) => {
+app.use("/graphql", bodyParser.json(), GraphQLUpload(), graphqlExpress((req) => {
   return {
     schema: schema,
     context: { },

@@ -123,13 +123,28 @@ type VerifyOtpResponse {
     user: User
 }
 
+scalar Upload
+
+type File {
+    id: ID!
+    path: String!
+    filename: String!
+    mimetype: String!
+    encoding: String!
+}
+
 type Query {
+    uploads: [File]
+
     getAllOrders: [Order]
     getOrder(_id: String!): Order
     getOrdersByUser(userId:String!): Order
 }
 
 type Mutation {
+    singleUpload (file: Upload!): File!
+    multipleUpload (files: [Upload!]!): [File!]!
+
     placeOrder(orderBy:String orderStatus:Int prescription:[String] createdAt:String vendorAssigned:String medicines:[MedicineInput] orderAddress:AddressInput ): Order
     updateOrder(_id: String! orderBy:String orderStatus:Int prescription:[String] createdAt:String vendorAssigned:String medicines:[MedicineInput] orderAddress:AddressInput ): Order
     removeOrder(_id: String!): Order
@@ -137,6 +152,9 @@ type Mutation {
 
     sendOtp(mobileNumber: String!): Boolean
     verify(mobileNumber: String! otp: Int! deviceToken:String environment:String osVersion:String buildVersion:String device:String): VerifyOtpResponse
+    signup(userId:String! name:String! email:String! city:String! isSignupCompleted:String!): User
+
+
 }
 
 schema {
