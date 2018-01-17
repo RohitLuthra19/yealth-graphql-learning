@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const User = require('../../models/user.model');
+const Vendor = require('../../models/vendor.model');
 const Order = require('../../models/order.model');
 const SendOtp = require('sendotp');
 const Constants = require('../../helpers/constants');
@@ -21,16 +23,31 @@ const resolver = {
         },
         getOrdersByUser: async (parent, args) => {
             return await Order.find({ orderBy: args.userId });
-        }
+        },
 
         /**
          * Users
          */
-
+        getAllUsers: async (parent, args) => {
+            return await User.find({}, (err, res) => {
+                return res;
+            });
+        },
+        getUser: async (parent, args) => {
+            return await User.findById(args._id);
+        }, 
         
         /**
          * Vendors
          */
+        getAllVendors: async (parent, args) => {
+            return await Vendor.find({}, (err, res) => {
+                return res;
+            });
+        },
+        getVendor: async (parent, args) => {
+            return await Vendor.findById(args._id);
+        }, 
 
     },
     Mutation: {
@@ -77,14 +94,20 @@ const resolver = {
                 }
             });
         },
-        signup: async(parent, args) => {
-            return await Order.findByIdAndUpdate({ _id: args.userId });
+        signupUser: async(parent, args) => {
+            return await Order.findByIdAndUpdate({ _id: args._id });
         },
 
         /**
          * Vendors
          */
-
+        signupVendor: async(parent, args) => {
+            const vendor = new User(args);
+            return await vendor.save();
+        },
+        updateVendor: async(parent, args) => {
+            return await Order.findByIdAndUpdate({ _id: args._id });
+        },
 
 
     }
